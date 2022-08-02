@@ -7,7 +7,7 @@ import {
   useMediaQuery,
   Heading,
 } from "@chakra-ui/react";
-import { LoginForm } from "../../components/Forms/Login";
+
 import imageDestak3 from "../../assets/images/image3.png";
 import logo from "../../assets/images/logo.png";
 import { CardEvents } from "../../components/CardEvents";

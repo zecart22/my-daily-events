@@ -8,8 +8,10 @@ import {
   Image,
 } from "@chakra-ui/react";
 
+import "./index.css";
 import agendaIcon from "../../assets/images/icon.png";
 import { MdDateRange } from "react-icons/md";
+import moment from "moment";
 
 interface CardEventsProps {
   tittle: string;
@@ -24,11 +26,13 @@ export const CardEvents = ({
   date,
   color,
 }: CardEventsProps) => {
+  const newDate = moment(date).format("DD/MM/YYYY hh:mm");
+
   return (
     <Box
       border="1px"
       borderColor="theme.white"
-      mt="20px"
+      mt="30px"
       _hover={{
         transform: "translateY(2px)",
       }}
@@ -46,26 +50,40 @@ export const CardEvents = ({
           borderRadius="10px  10px 0px 0px"
           bg={color}
           border="1px"
-          borderColor="theme.white"
-          width="310px"
+          borderColor="gray.50"
+          width="312px"
           height={"80px"}
+          mt={-4}
         >
-          <Text
-            w={"220px"}
-            webkit-text-stroke="3px white"
-            fontWeight={"semibold"}
-            color={"theme.black"}
-          >
-            {" "}
-            {tittle.toLocaleUpperCase()}
-          </Text>
+          {tittle === "" ? (
+            <Text
+              w={"220px"}
+              fontWeight={"semibold"}
+              color={"theme.black"}
+              className={"title"}
+              fontSize={"20px"}
+            >
+              {"Evento sem título"}
+            </Text>
+          ) : (
+            <Text
+              w={"220px"}
+              fontWeight={"semibold"}
+              color={"theme.black"}
+              className={"title"}
+              fontSize={"20px"}
+            >
+              {tittle.toLocaleUpperCase()}
+            </Text>
+          )}
+
           <Image src={agendaIcon} />
         </HStack>
         <Text w={"200px"}>Descrição : {description}</Text>
         <HStack spacing={5}>
           <MdDateRange size={35} color={"#011a3f"} />
 
-          <Text fontSize={25}>{date}</Text>
+          <Text fontSize={25}>{newDate}</Text>
         </HStack>
         <Button
           bg={"theme.darkBlue"}
