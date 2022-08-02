@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext, ReactNode } from "react";
-import Events from "../Events/events";
 
+import { useState, useEffect } from "react";
+import { api } from "../../services";
 interface Evts {
   titulo: string;
   descricao: string;
@@ -26,7 +26,18 @@ export const EventsContext = createContext<EventsProviderData>(
 );
 
 export const EventsProvider = ({ children }: EventsProviderProps) => {
-  const events = Events;
+  const [eventsData, setEventsData] = useState([]);
+
+  useEffect(() => {
+    api
+      .get("/eventos_diarios")
+      .then((response) => {
+        console.log(response);
+        setEventsData(response.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  const events = eventsData;
   return (
     <EventsContext.Provider value={{ events }}>
       {children}
