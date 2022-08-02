@@ -7,9 +7,8 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 
-import { LoginForm } from "../../components/Forms/Login";
 import { CreatEventForm } from "../../components/Forms/CreatEvent";
-import imageDestak2 from "../../assets/images/image5.png";
+import imageDestak2 from "../../assets/images/image6.png";
 import logo from "../../assets/images/logo.png";
 
 export const CreatEvent = () => {
@@ -30,7 +29,7 @@ to {transform: translateX(-5px)}
                 src={imageDestak2}
                 alt="banner"
                 h={"100vh"}
-                w={"90vh"}
+                w={"100vh"}
                 boxShadow={"dark-lg"}
                 animation={`${AppearFromRight} 3s`}
               />
