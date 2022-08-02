@@ -14,6 +14,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { CgAddR } from "react-icons/cg";
 import { useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import eventList from "../../assets/images/eventList.png";
 
 export const Header = () => {
   const [isLargerThan1302] = useMediaQuery("(min-width: 1302px)");
