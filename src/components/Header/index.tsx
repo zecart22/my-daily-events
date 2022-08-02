@@ -29,23 +29,24 @@ export const Header = () => {
   return (
     <>
       <Flex
-        h="120px"
+        h="150px"
         flexDirection="row"
         justifyContent="space-between"
         px="5"
         py="1"
         bg="primary.main"
         boxShadow="0px 1px 4px"
-        position="fixed"
+        position="relative"
         width="100%"
         zIndex="100"
       >
         {isLargerThan1302 ? (
           <>
             <Flex>
-              <Center>
-                <Image src={logo}></Image>
-              </Center>
+              <HStack spacing={300}>
+                <Image src={logo} />
+                <Image src={eventList} />
+              </HStack>
             </Flex>
             <Flex alignItems="flex-end" mb={"10px"}>
               <HStack spacing="8" mr={5}>
@@ -77,9 +78,10 @@ export const Header = () => {
         ) : (
           <>
             <Flex>
-              <Center>
-                <Image src={logo}></Image>
-              </Center>
+              <VStack>
+                <Image src={logo} />
+                <Image src={eventList} w="230px" h="30px" />
+              </VStack>
             </Flex>
             <Flex alignItems="flex-end" mb={"2"}>
               <VStack spacing="2">

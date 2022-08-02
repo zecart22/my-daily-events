@@ -44,7 +44,7 @@ export const CardEvents = ({
       <VStack spacing={5} mt={5}>
         <HStack
           borderRadius="10px  10px 0px 0px"
-          bg={"theme.blue"}
+          bg={color}
           border="1px"
           borderColor="theme.white"
           width="310px"
