@@ -6,6 +6,8 @@ import {
   Flex,
   VStack,
   Button,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
@@ -35,6 +37,8 @@ const loginSchema = yup.object().shape({
 export const LoginForm = () => {
   const history = useHistory();
   const { signIn } = useAuth();
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
 
   const {
     formState: { errors },
@@ -43,23 +47,6 @@ export const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
-
-  const onSubmit = (data: LoginData) => {
-    api
-      .post("/login/adm", { ...data })
-      .then(function (response) {
-        console.log(response);
-        window.localStorage.clear();
-        window.localStorage.setItem(
-          "@MyDailyEvents:token",
-          response.data.token
-        );
-        return history.push("/dashboard");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   const handleLogin = (data: LoginData) => {
     signIn(data)
@@ -92,9 +79,9 @@ export const LoginForm = () => {
             w={"290px"}
             type="email"
             {...register("email")}
-            /*  error={errors.email?.message} */
           />
         </FormControl>
+
         <FormControl isRequired>
           <FormLabel>Senha</FormLabel>
           <Input
