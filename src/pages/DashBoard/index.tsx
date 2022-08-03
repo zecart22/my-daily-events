@@ -16,7 +16,6 @@ import { array } from "yup";
 
 export const DashBoard = () => {
   const { events } = useContext(EventsContext);
-  console.log(events);
 
   const AppearFromRight = keyframes`
   from {opacity: 0;}
@@ -39,6 +38,7 @@ export const DashBoard = () => {
               date={events.data}
               description={events.descricao}
               tittle={events.titulo}
+              id={events.id}
             />
           ))}
       </Flex>

@@ -6,22 +6,62 @@ import {
   Flex,
   VStack,
   Button,
-  FormHelperText,
-  FormErrorMessage,
-  Textarea,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
+import { useAuth } from "../../../contexts/AuthContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { api } from "../../../services";
+import { Redirect, useHistory } from "react-router";
+import * as yup from "yup";
+
+interface LoginData {
+  titulo: string;
+  descricao: string;
+  date: string;
+  cor: string;
+}
+
+const loginSchema = yup.object().shape({
+  titulo: yup.string().required(" obrigatório"),
+  descricao: yup.string().required(" obrigatória"),
+  date: yup.string().required(" obrigatória"),
+  cor: yup.string().required(" obrigatória"),
+});
 
 export const CreatEventForm = () => {
-  const [input, setInput] = useState("");
-  const handleInputChange = (e: any) => setInput(e.target.value);
-  const isError = input === "";
+  const history = useHistory();
+  const { accessToken } = useAuth();
+
+  const {
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
+
+  const token = localStorage.getItem("@AcessToken");
+
+  const handleCreate = (data: LoginData) => {
+    console.log(data);
+    api
+      .post("/eventos_diarios", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        alert("Evento adicionado com sucesso");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Flex
       w={"365px"}
-      h={"670px"}
+      h={"570px"}
       border={"1px solid"}
       borderColor={"theme.gray"}
       boxShadow={"md"}
@@ -30,30 +70,52 @@ export const CreatEventForm = () => {
     >
       <VStack spacing={5}>
         <Text fontSize={24} mt={"10px"}>
-          Criar Evento
+          Add Event
         </Text>
         <FormControl isRequired>
           <FormLabel>Titulo</FormLabel>
-          <Input placeholder="titulo do evento" w={"290px"} type="text" />
+          <Input
+            placeholder="titulo"
+            w={"290px"}
+            type="text"
+            {...register("titulo")}
+          />
         </FormControl>
+
         <FormControl isRequired>
-          <FormLabel>Descrição</FormLabel>
-          <Textarea placeholder="descrição do evento" w={"290px"} h={"170px"} />
+          <FormLabel>Decrição</FormLabel>
+          <Input
+            placeholder="descrição"
+            w={"290px"}
+            type="text"
+            {...register("descricao")}
+          />
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Data</FormLabel>
-          <Input placeholder="data do seu evento" w={"290px"} type="date" />
+          <Input
+            placeholder="data"
+            w={"290px"}
+            type="date"
+            {...register("date")}
+          />
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Cor</FormLabel>
-          <Input placeholder="data do seu evento" w={"290px"} type="color" />
+          <Input
+            placeholder="cor"
+            w={"290px"}
+            type="color"
+            {...register("cor")}
+          />
         </FormControl>
         <Button
           bg={"theme.blue"}
           w={"190px"}
-          children={"Enviar"}
+          children={"Entrar"}
           color={"theme.white"}
           type={"submit"}
+          onClick={handleSubmit(handleCreate as any)}
         />
       </VStack>
     </Flex>

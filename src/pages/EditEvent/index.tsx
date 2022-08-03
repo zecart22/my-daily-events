@@ -42,6 +42,7 @@ export const EditEvent = () => {
                   date={"22-03"}
                   description={"Comemoração do aniverssário da cidade"}
                   tittle={"Anivessário da cidade"}
+                  id={20}
                 />
               </VStack>
             </HStack>
@@ -59,6 +60,7 @@ export const EditEvent = () => {
                 date={"22-03"}
                 description={"Comemoração do aniverssário da cidade"}
                 tittle={"Anivessário da cidade"}
+                id={27}
               />
             </VStack>
           </Box>

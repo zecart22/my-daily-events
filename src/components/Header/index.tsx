@@ -4,6 +4,7 @@ import {
   HStack,
   VStack,
   Image,
+  Box,
   Link,
   Text,
   Button,
@@ -12,11 +13,18 @@ import {
 
 import { FaUserCircle } from "react-icons/fa";
 import { CgAddR } from "react-icons/cg";
-import { useLocation } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { useHistory, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import eventList from "../../assets/images/eventList.png";
 
 export const Header = () => {
+  const history = useHistory();
+
+  const handleNavigation = (path: any) => {
+    return history.push(path);
+  };
+
   const [isLargerThan1302] = useMediaQuery("(min-width: 1302px)");
 
   const location = useLocation();
@@ -63,7 +71,13 @@ export const Header = () => {
                   </Text>
                 </VStack>
                 <VStack>
-                  <CgAddR size={45} />
+                  <Box
+                    as="button"
+                    onClick={() => handleNavigation("/createvent")}
+                  >
+                    <CgAddR size={45} />
+                  </Box>
+
                   <Text
                     textDecoration={"none"}
                     fontWeight={"extrabold"}
@@ -85,7 +99,12 @@ export const Header = () => {
             </Flex>
             <Flex alignItems="flex-end" mb={"2"}>
               <VStack spacing="2">
-                <CgAddR size={45} />
+                <Box
+                  as="button"
+                  onClick={() => handleNavigation("/createvent")}
+                >
+                  <CgAddR size={45} />
+                </Box>
                 <Text
                   textDecoration={"none"}
                   fontWeight={"extrabold"}

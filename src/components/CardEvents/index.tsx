@@ -11,13 +11,16 @@ import {
 import "./index.css";
 import agendaIcon from "../../assets/images/icon.png";
 import { MdDateRange } from "react-icons/md";
+import { api } from "../../services";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 
 interface CardEventsProps {
   tittle: string;
   description: string;
   date: string;
   color: string;
+  id: number;
 }
 
 export const CardEvents = ({
@@ -25,8 +28,30 @@ export const CardEvents = ({
   description,
   date,
   color,
+  id,
 }: CardEventsProps) => {
+  const history = useHistory();
+
+  const handleNavigation = (path: any) => {
+    return history.push(path);
+  };
   const newDate = moment(date).format("DD/MM/YYYY hh:mm");
+
+  const token = localStorage.getItem("@AcessToken");
+
+  const handleDelete = (id: any) => {
+    api
+      .delete("/eventos_diarios/" + id, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        alert("Evento deletado com sucesso");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Box
@@ -92,6 +117,7 @@ export const CardEvents = ({
           color={"theme.white"}
           _hover={{ bg: "theme.blue" }}
           fontSize={20}
+          onClick={() => handleNavigation("/editevent")}
         >
           editar evento
         </Button>
@@ -103,6 +129,7 @@ export const CardEvents = ({
           mb={20}
           _hover={{ bg: "theme.blue" }}
           fontSize={20}
+          onClick={handleDelete(id) as any}
         >
           deletar evento
         </Button>

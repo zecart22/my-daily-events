@@ -32,7 +32,6 @@ export const EventsProvider = ({ children }: EventsProviderProps) => {
     api
       .get("/eventos_diarios")
       .then((response) => {
-        console.log(response);
         setEventsData(response.data);
       })
       .catch((err) => console.log(err));

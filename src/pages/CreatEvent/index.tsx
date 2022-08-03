@@ -42,7 +42,7 @@ to {transform: translateX(-5px)}
       ) : (
         <>
           {/* mobile */}
-          <Box bg={"gray.10"} h="110vh">
+          <Box bg={"theme.white"} h="110vh">
             <VStack spacing={10}>
               <Image src={logo} alt="logo" mt={50}></Image>
 

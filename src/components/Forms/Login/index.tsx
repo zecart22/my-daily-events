@@ -6,8 +6,6 @@ import {
   Flex,
   VStack,
   Button,
-  InputGroup,
-  InputRightElement,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
@@ -37,8 +35,6 @@ const loginSchema = yup.object().shape({
 export const LoginForm = () => {
   const history = useHistory();
   const { signIn } = useAuth();
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
 
   const {
     formState: { errors },

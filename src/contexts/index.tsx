@@ -1,5 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { EventsProvider } from "./Events";
+
 import { ReactNode } from "react";
 import { AuthProvider } from "./AuthContext";
 
