@@ -42,7 +42,7 @@ export const Login = () => {
       ) : (
         <>
           {/* mobile */}
-          <Box bg={"gray.10"} h="99.2vh">
+          <Box bg={"theme.white"} h="99.2vh">
             <VStack spacing={10}>
               <Image src={logo} alt="logo" mt={50}></Image>
 

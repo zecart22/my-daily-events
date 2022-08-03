@@ -6,16 +6,70 @@ import {
   Flex,
   VStack,
   Button,
-  FormHelperText,
-  FormErrorMessage,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
+import { useAuth } from "../../../contexts/AuthContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { api } from "../../../services";
+import { Redirect, useHistory } from "react-router";
+import * as yup from "yup";
+
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+const loginSchema = yup.object().shape({
+  email: yup
+    .string()
+    .required("Email obrigatório")
+    .email("Digite um email válido"),
+  password: yup
+    .string()
+    .required("Senha obrigatória")
+    .min(6, "Senha deve ter no mínimo 6 caracteres"),
+});
 
 export const LoginForm = () => {
-  const [input, setInput] = useState("");
-  const handleInputChange = (e: any) => setInput(e.target.value);
-  const isError = input === "";
+  const history = useHistory();
+  const { signIn } = useAuth();
+
+  const {
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
+
+  const onSubmit = (data: LoginData) => {
+    api
+      .post("/login/adm", { ...data })
+      .then(function (response) {
+        console.log(response);
+        window.localStorage.clear();
+        window.localStorage.setItem(
+          "@MyDailyEvents:token",
+          response.data.token
+        );
+        return history.push("/dashboard");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const handleLogin = (data: LoginData) => {
+    signIn(data)
+      .then((response) => {
+        history.push("/dashboard");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Flex
@@ -37,16 +91,9 @@ export const LoginForm = () => {
             placeholder="seu email"
             w={"290px"}
             type="email"
-            value={input}
-            onChange={handleInputChange}
+            {...register("email")}
+            /*  error={errors.email?.message} */
           />
-          {!isError ? (
-            <FormHelperText>
-              Adicione o email que usou no cadastro.
-            </FormHelperText>
-          ) : (
-            <FormErrorMessage>Email é obrigatório.</FormErrorMessage>
-          )}
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Senha</FormLabel>
@@ -54,14 +101,8 @@ export const LoginForm = () => {
             placeholder="sua senha"
             w={"290px"}
             type="password"
-            value={input}
-            onChange={handleInputChange}
+            {...register("password")}
           />
-          {!isError ? (
-            <FormHelperText>Coloque a sua senha</FormHelperText>
-          ) : (
-            <FormErrorMessage>Senha necessária.</FormErrorMessage>
-          )}
         </FormControl>
         <Button
           bg={"theme.blue"}
@@ -69,6 +110,7 @@ export const LoginForm = () => {
           children={"Entrar"}
           color={"theme.white"}
           type={"submit"}
+          onClick={handleSubmit(handleLogin as any)}
         />
       </VStack>
     </Flex>
