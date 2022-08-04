@@ -19,6 +19,8 @@ import logo from "../../assets/images/logo.png";
 import eventList from "../../assets/images/eventList.png";
 
 export const Header = () => {
+  const { signOut } = useAuth();
+
   const history = useHistory();
 
   const handleNavigation = (path: any) => {
@@ -86,6 +88,7 @@ export const Header = () => {
                     Adicionar Eventos
                   </Text>
                 </VStack>
+                <Text color={"theme.red"}>Log Out</Text>
               </HStack>
             </Flex>
           </>

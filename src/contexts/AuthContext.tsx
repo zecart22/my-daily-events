@@ -23,6 +23,7 @@ interface SignInCredentials {
 interface AuthContextData {
   accessToken: string;
   signIn: (credentials: SignInCredentials) => Promise<void>;
+  signOut: () => void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -58,11 +59,18 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     setData({ accessToken });
   }, []);
 
+  const signOut = useCallback(() => {
+    window.localStorage.clear();
+
+    setData({} as AuthState);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
         accessToken: data.accessToken,
         signIn,
+        signOut,
       }}
     >
       {children}

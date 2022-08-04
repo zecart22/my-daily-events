@@ -1,19 +1,20 @@
 import {
   Text,
-  useMediaQuery,
   Box,
   HStack,
   Button,
   VStack,
   Image,
+  Input,
 } from "@chakra-ui/react";
 
 import "./index.css";
 import agendaIcon from "../../assets/images/icon.png";
-import { Modall } from "../modal";
-import { MdDateRange } from "react-icons/md";
 import { api } from "../../services";
-import moment from "moment";
+import { MdDateRange } from "react-icons/md";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 
 interface CardEventsProps {
@@ -24,7 +25,14 @@ interface CardEventsProps {
   id: number;
 }
 
-export const CardEvents = ({
+interface EditData {
+  titulo: string;
+  descricao: string;
+  date: string;
+  cor: string;
+}
+
+export const CardEventsEditable = ({
   tittle,
   description,
   date,
@@ -33,21 +41,32 @@ export const CardEvents = ({
 }: CardEventsProps) => {
   const history = useHistory();
 
-  const handleNavigation = (path: any) => {
-    return history.push(path);
-  };
-  const newDate = moment(date).format("DD/MM/YYYY hh:mm");
+  const ChangeEventSchema = yup.object().shape({
+    titulo: yup.string(),
+    descricao: yup.string(),
+    date: yup.string(),
+    cor: yup.string(),
+  });
+
+  const {
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(ChangeEventSchema),
+  });
 
   const token = localStorage.getItem("@AcessToken");
 
-  const handleDelete = () => {
+  const handleEdit = (data: EditData) => {
     api
-      .delete("/eventos_diarios/" + id, {
+      .put("/eventos_diarios/" + id, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         console.log(response);
-        alert("Evento deletado com sucesso");
+        alert("Evento editado com sucesso");
+        history.push("/dashboard");
       })
       .catch((err) => {
         console.log(err);
@@ -57,7 +76,7 @@ export const CardEvents = ({
   return (
     <Box
       border="1px"
-      borderColor="theme.white"
+      borderColor="gray.100"
       mt="30px"
       _hover={{
         transform: "translateY(2px)",
@@ -66,13 +85,14 @@ export const CardEvents = ({
       transition="border 0.2s, ease 0s, transform 0.2s"
       borderRadius="10px  10px 0px 0px"
       width="310px"
-      height={"380px"}
+      height={"390px"}
       textAlign={"center"}
       justifyContent={"column"}
       boxShadow="lg"
     >
       <VStack spacing={5} mt={5}>
         <HStack
+          contentEditable={"true"}
           borderRadius="10px  10px 0px 0px"
           bg={color}
           border="1px"
@@ -80,6 +100,7 @@ export const CardEvents = ({
           width="312px"
           height={"80px"}
           mt={-4}
+          {...register("titulo")}
         >
           {tittle === "" ? (
             <Text
@@ -93,7 +114,7 @@ export const CardEvents = ({
             </Text>
           ) : (
             <Text
-              /* contentEditable={"true"} */
+              contentEditable={"true"}
               w={"220px"}
               fontWeight={"semibold"}
               color={"theme.black"}
@@ -106,33 +127,29 @@ export const CardEvents = ({
 
           <Image src={agendaIcon} />
         </HStack>
-        <Text w={"200px"}>Descrição : {description}</Text>
+        <Text w={"200px"} contentEditable={"true"} {...register("descricao")}>
+          Descrição : {description}
+        </Text>
         <HStack spacing={5}>
           <MdDateRange size={35} color={"#011a3f"} />
 
-          <Text fontSize={25}>{newDate}</Text>
+          <Text fontSize={25} contentEditable={"true"} {...register("data")}>
+            {date}
+          </Text>
         </HStack>
-
-        <Modall
-          id={id}
-          cor={color}
-          titulo={tittle}
-          descricao={description}
-          data={date}
-        ></Modall>
-        <Button
-          bg={"theme.darkBlue"}
-          w="220px"
-          fontFamily={"Permanent Marker"}
-          color={"theme.white"}
-          mb={20}
-          _hover={{ bg: "theme.blue" }}
-          fontSize={20}
-          onClick={handleDelete as any}
-        >
-          deletar evento
-        </Button>
+        <Text>Escolha a nova cor para seu evento</Text>
+        <Input type={"color"} {...register("cor")}></Input>
       </VStack>
+      <Button
+        mt={10}
+        colorScheme="blue"
+        mr={3}
+        width={"250px"}
+        height={"40px"}
+        onClick={handleSubmit(handleEdit as any)}
+      >
+        Confirmar edição
+      </Button>
     </Box>
   );
 };

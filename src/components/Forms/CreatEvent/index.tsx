@@ -96,7 +96,7 @@ export const CreatEventForm = () => {
           <Input
             placeholder="data"
             w={"290px"}
-            type="date"
+            type="datetime-local"
             {...register("date")}
           />
         </FormControl>
@@ -112,7 +112,7 @@ export const CreatEventForm = () => {
         <Button
           bg={"theme.blue"}
           w={"190px"}
-          children={"Entrar"}
+          children={"Criar evento"}
           color={"theme.white"}
           type={"submit"}
           onClick={handleSubmit(handleCreate as any)}

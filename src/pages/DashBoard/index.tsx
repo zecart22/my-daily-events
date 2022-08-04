@@ -19,7 +19,7 @@ export const DashBoard = () => {
 
   const AppearFromRight = keyframes`
   from {opacity: 0;}
-  to {transform: translateX(50px)}
+  to {transform: translateX(20px)}
 `;
 
   return (
