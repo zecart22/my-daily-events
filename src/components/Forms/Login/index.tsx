@@ -9,13 +9,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import { useState } from "react";
 import { useAuth } from "../../../contexts/AuthContext";
 import { ModalSucess } from "../../ModallSucess";
 import { ModalFail } from "../../ModalFail";
 import { useForm } from "react-hook-form";
-import { api } from "../../../services";
-import { Redirect, useHistory } from "react-router";
+
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -47,7 +45,6 @@ export const LoginForm = () => {
     onClose: onModalFailClose,
   } = useDisclosure();
 
-  const history = useHistory();
   const { signIn } = useAuth();
   const recarregarAPagina = () => {
     window.location.reload();

@@ -6,19 +6,14 @@ import {
   ModalContent,
   ModalOverlay,
   useDisclosure,
-  keyframes,
   VStack,
   HStack,
-  Heading,
-  Box,
-  Image,
-  useMediaQuery,
   Text,
   ModalHeader,
   ModalFooter,
 } from "@chakra-ui/react";
 import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { BsCheckCircle } from "react-icons/bs";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { SiOdysee } from "react-icons/si";

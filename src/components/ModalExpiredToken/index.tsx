@@ -2,13 +2,11 @@ import {
   Button,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalOverlay,
   useDisclosure,
   VStack,
   Text,
-  ModalFooter,
   ModalHeader,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";

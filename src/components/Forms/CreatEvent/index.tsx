@@ -10,13 +10,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import { useState } from "react";
-import { useAuth } from "../../../contexts/AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { api } from "../../../services";
 import { ModalExpiredToken } from "../../ModalExpiredToken";
-import { Redirect, useHistory } from "react-router";
+
 import * as yup from "yup";
 
 interface LoginData {
@@ -34,8 +32,6 @@ const loginSchema = yup.object().shape({
 });
 
 export const CreatEventForm = () => {
-  const history = useHistory();
-  const { accessToken } = useAuth();
   const toast = useToast();
 
   const { isOpen, onOpen, onClose } = useDisclosure();

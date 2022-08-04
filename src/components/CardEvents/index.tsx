@@ -1,9 +1,7 @@
 import {
   Text,
-  useMediaQuery,
   Box,
   HStack,
-  Button,
   VStack,
   Image,
   useToast,
@@ -16,8 +14,6 @@ import { Modall } from "../modal";
 import { ModalDeleteConfirmation } from "../ModalDeletConfirmation";
 import { MdDateRange } from "react-icons/md";
 import { api } from "../../services";
-import moment from "moment";
-import { useHistory } from "react-router-dom";
 import { ModalExpiredToken } from "../ModalExpiredToken";
 
 interface CardEventsProps {
@@ -35,8 +31,6 @@ export const CardEvents = ({
   color,
   id,
 }: CardEventsProps) => {
-  const history = useHistory();
-
   const toast = useToast();
 
   const recarregarAPagina = () => {
@@ -44,8 +38,6 @@ export const CardEvents = ({
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const newDate = moment(date).format("DD/MM/YYYY hh:mm");
 
   const token = localStorage.getItem("@AcessToken");
 

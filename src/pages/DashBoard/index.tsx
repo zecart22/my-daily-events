@@ -1,12 +1,4 @@
-import {
-  Text,
-  useMediaQuery,
-  Flex,
-  Image,
-  Box,
-  VStack,
-  keyframes,
-} from "@chakra-ui/react";
+import { Flex, Box, keyframes } from "@chakra-ui/react";
 
 import { useContext } from "react";
 import { EventsContext } from "../../contexts/Events";
