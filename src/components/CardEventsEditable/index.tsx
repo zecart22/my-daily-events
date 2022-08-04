@@ -7,6 +7,7 @@ import {
   Image,
   Input,
   useToast,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import "./index.css";
@@ -17,6 +18,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { ModalExpiredToken } from "../ModalExpiredToken";
 
 interface CardEventsProps {
   tittle: string;
@@ -41,6 +43,8 @@ export const CardEventsEditable = ({
   id,
 }: CardEventsProps) => {
   const history = useHistory();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const ChangeEventSchema = yup.object().shape({
     titulo: yup.string(),
@@ -82,80 +86,58 @@ export const CardEventsEditable = ({
         setTimeout(recarregarAPagina, 2000);
       })
       .catch((err) => {
-        toast({
-          position: "top",
-          title: "Não foi possível editar o evento",
-          description: "Sua sessão expirou faça login novamente",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
+        onOpen();
         console.log(err);
       });
   };
 
   return (
-    <Box
-      border="1px"
-      borderColor="gray.100"
-      mt="30px"
-      _hover={{
-        transform: "translateY(2px)",
-      }}
-      bg={"theme.white"}
-      transition="border 0.2s, ease 0s, transform 0.2s"
-      borderRadius="10px  10px 0px 0px"
-      width="350px"
-      height={"430px"}
-      textAlign={"center"}
-      justifyContent={"column"}
-      boxShadow="lg"
-    >
-      <VStack spacing={5} mt={5}>
-        <HStack
-          spacing={10}
-          contentEditable={"true"}
-          borderRadius="10px  10px 0px 0px"
-          bg={color}
-          border="1px"
-          borderColor="gray.50"
-          width="352px"
-          height={"80px"}
-          mt={-4}
-        >
-          <Input
-            ml={5}
+    <>
+      <ModalExpiredToken isOpen={isOpen} onClose={onClose} />
+      <Box
+        border="1px"
+        borderColor="gray.100"
+        mt="30px"
+        _hover={{
+          transform: "translateY(2px)",
+        }}
+        bg={"theme.white"}
+        transition="border 0.2s, ease 0s, transform 0.2s"
+        borderRadius="10px  10px 0px 0px"
+        width="350px"
+        height={"430px"}
+        textAlign={"center"}
+        justifyContent={"column"}
+        boxShadow="lg"
+      >
+        <VStack spacing={5} mt={5}>
+          <HStack
+            spacing={10}
             contentEditable={"true"}
-            w={"220px"}
-            fontWeight={"semibold"}
-            color={"theme.black"}
-            className={"title"}
-            fontSize={"20px"}
-            placeholder={tittle.toLocaleUpperCase()}
-            variant="flushed"
-            {...register("titulo")}
-          />
+            borderRadius="10px  10px 0px 0px"
+            bg={color}
+            border="1px"
+            borderColor="gray.50"
+            width="352px"
+            height={"80px"}
+            mt={-4}
+          >
+            <Input
+              ml={5}
+              contentEditable={"true"}
+              w={"220px"}
+              fontWeight={"semibold"}
+              color={"theme.black"}
+              className={"title"}
+              fontSize={"20px"}
+              placeholder={tittle.toLocaleUpperCase()}
+              variant="flushed"
+              {...register("titulo")}
+            />
 
-          <Image src={agendaIcon} />
-        </HStack>
-        <Input
-          ml={5}
-          contentEditable={"true"}
-          w={"320px"}
-          h={"50px"}
-          fontWeight={"semibold"}
-          color={"theme.black"}
-          className={"title"}
-          fontSize={"20px"}
-          placeholder={description}
-          _placeholder={{ width: 300, height: 300 }}
-          variant="flushed"
-          {...register("descricao")}
-        />
-
-        <HStack spacing={5}>
+            <Image src={agendaIcon} />
+          </HStack>
           <Input
-            type={"datetime-local"}
             ml={5}
             contentEditable={"true"}
             w={"320px"}
@@ -164,25 +146,43 @@ export const CardEventsEditable = ({
             color={"theme.black"}
             className={"title"}
             fontSize={"20px"}
-            placeholder={date}
+            placeholder={description}
             _placeholder={{ width: 300, height: 300 }}
             variant="flushed"
-            {...register("data")}
+            {...register("descricao")}
           />
-        </HStack>
-        <Text>Escolha a nova cor para seu evento</Text>
-        <Input type={"color"} {...register("cor")}></Input>
-      </VStack>
-      <Button
-        mt={10}
-        colorScheme="blue"
-        mr={3}
-        width={"250px"}
-        height={"40px"}
-        onClick={handleSubmit(handleEdit as any)}
-      >
-        Confirmar edição
-      </Button>
-    </Box>
+
+          <HStack spacing={5}>
+            <Input
+              type={"datetime-local"}
+              ml={5}
+              contentEditable={"true"}
+              w={"320px"}
+              h={"50px"}
+              fontWeight={"semibold"}
+              color={"theme.black"}
+              className={"title"}
+              fontSize={"20px"}
+              placeholder={date}
+              _placeholder={{ width: 300, height: 300 }}
+              variant="flushed"
+              {...register("data")}
+            />
+          </HStack>
+          <Text>Escolha a nova cor para seu evento</Text>
+          <Input type={"color"} {...register("cor")}></Input>
+        </VStack>
+        <Button
+          mt={10}
+          colorScheme="blue"
+          mr={3}
+          width={"250px"}
+          height={"40px"}
+          onClick={handleSubmit(handleEdit as any)}
+        >
+          Confirmar edição
+        </Button>
+      </Box>
+    </>
   );
 };
