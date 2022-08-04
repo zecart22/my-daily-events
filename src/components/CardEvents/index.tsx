@@ -37,6 +37,10 @@ export const CardEvents = ({
 
   const toast = useToast();
 
+  const recarregarAPagina = () => {
+    window.location.reload();
+  };
+
   const handleNavigation = (path: any) => {
     return history.push(path);
   };
@@ -54,18 +58,19 @@ export const CardEvents = ({
         toast({
           position: "top",
           title: "Evento deletado com sucesso",
-          description: "Clique em fechar para",
+          description: "Recarregando página...",
           status: "success",
           duration: 5000,
           isClosable: true,
         });
+        setTimeout(recarregarAPagina, 2000);
       })
       .catch((err) => {
         console.log(err);
         toast({
           position: "top",
           title: "Não foi possível deletar o evento",
-          description: "Tente novamente mais tarde",
+          description: "Sua sessão expirou faça login novamente",
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -130,7 +135,7 @@ export const CardEvents = ({
         <HStack spacing={5}>
           <MdDateRange size={35} color={"#011a3f"} />
 
-          <Text fontSize={25}>{newDate}</Text>
+          <Text fontSize={25}>{date}</Text>
         </HStack>
 
         <Modall

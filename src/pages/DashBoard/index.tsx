@@ -14,6 +14,7 @@ import { Header } from "../../components/Header";
 import { CardEvents } from "../../components/CardEvents";
 
 export const DashBoard = () => {
+  /*  window.location.reload(); */
   const { events } = useContext(EventsContext);
 
   const AppearFromRight = keyframes`

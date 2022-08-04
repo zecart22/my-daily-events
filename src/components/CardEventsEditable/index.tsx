@@ -6,6 +6,7 @@ import {
   VStack,
   Image,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 
 import "./index.css";
@@ -56,7 +57,11 @@ export const CardEventsEditable = ({
     resolver: yupResolver(ChangeEventSchema),
   });
 
+  const toast = useToast();
   const token = localStorage.getItem("@AcessToken");
+  const recarregarAPagina = () => {
+    window.location.reload();
+  };
 
   const handleEdit = (data: EditData) => {
     api
@@ -65,10 +70,26 @@ export const CardEventsEditable = ({
       })
       .then((response) => {
         console.log(response);
-        alert("Evento editado com sucesso");
-        history.push("/dashboard");
+
+        toast({
+          position: "top",
+          title: "Evento editado com sucesso",
+          description: "Pagina recarregando...",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        setTimeout(recarregarAPagina, 2000);
       })
       .catch((err) => {
+        toast({
+          position: "top",
+          title: "Não foi possível editar o evento",
+          description: "Sua sessão expirou faça login novamente",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
         console.log(err);
       });
   };
@@ -84,58 +105,70 @@ export const CardEventsEditable = ({
       bg={"theme.white"}
       transition="border 0.2s, ease 0s, transform 0.2s"
       borderRadius="10px  10px 0px 0px"
-      width="310px"
-      height={"390px"}
+      width="350px"
+      height={"430px"}
       textAlign={"center"}
       justifyContent={"column"}
       boxShadow="lg"
     >
       <VStack spacing={5} mt={5}>
         <HStack
+          spacing={10}
           contentEditable={"true"}
           borderRadius="10px  10px 0px 0px"
           bg={color}
           border="1px"
           borderColor="gray.50"
-          width="312px"
+          width="352px"
           height={"80px"}
           mt={-4}
-          {...register("titulo")}
         >
-          {tittle === "" ? (
-            <Text
-              w={"220px"}
-              fontWeight={"semibold"}
-              color={"theme.black"}
-              className={"title"}
-              fontSize={"20px"}
-            >
-              {"Evento sem título"}
-            </Text>
-          ) : (
-            <Text
-              contentEditable={"true"}
-              w={"220px"}
-              fontWeight={"semibold"}
-              color={"theme.black"}
-              className={"title"}
-              fontSize={"20px"}
-            >
-              {tittle.toLocaleUpperCase()}
-            </Text>
-          )}
+          <Input
+            ml={5}
+            contentEditable={"true"}
+            w={"220px"}
+            fontWeight={"semibold"}
+            color={"theme.black"}
+            className={"title"}
+            fontSize={"20px"}
+            placeholder={tittle.toLocaleUpperCase()}
+            variant="flushed"
+            {...register("titulo")}
+          />
 
           <Image src={agendaIcon} />
         </HStack>
-        <Text w={"200px"} contentEditable={"true"} {...register("descricao")}>
-          Descrição : {description}
-        </Text>
-        <HStack spacing={5}>
-          <MdDateRange size={35} color={"#011a3f"} />
+        <Input
+          ml={5}
+          contentEditable={"true"}
+          w={"320px"}
+          h={"50px"}
+          fontWeight={"semibold"}
+          color={"theme.black"}
+          className={"title"}
+          fontSize={"20px"}
+          placeholder={description}
+          _placeholder={{ width: 300, height: 300 }}
+          variant="flushed"
+          {...register("descricao")}
+        />
 
-          <Text fontSize={25} contentEditable={"true"} {...register("data")}>
-            {date}
-          </Text>
+        <HStack spacing={5}>
+          <Input
+            type={"datetime-local"}
+            ml={5}
+            contentEditable={"true"}
+            w={"320px"}
+            h={"50px"}
+            fontWeight={"semibold"}
+            color={"theme.black"}
+            className={"title"}
+            fontSize={"20px"}
+            placeholder={date}
+            _placeholder={{ width: 300, height: 300 }}
+            variant="flushed"
+            {...register("data")}
+          />
         </HStack>
         <Text>Escolha a nova cor para seu evento</Text>
         <Input type={"color"} {...register("cor")}></Input>
