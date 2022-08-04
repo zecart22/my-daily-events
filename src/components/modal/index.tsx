@@ -13,6 +13,7 @@ import {
   Box,
   Image,
   useMediaQuery,
+  useToast,
 } from "@chakra-ui/react";
 
 import { CardEventsEditable } from "../CardEventsEditable";
@@ -32,6 +33,8 @@ export const Modall = ({ id, cor, titulo, descricao, data }: ModalProps) => {
   const [isLargerThan1085] = useMediaQuery("(min-width: 1085px)");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const toast = useToast();
 
   const AppearFromRight = keyframes`
 

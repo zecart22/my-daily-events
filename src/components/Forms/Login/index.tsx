@@ -47,11 +47,11 @@ export const LoginForm = () => {
     onClose: onModalFailClose,
   } = useDisclosure();
 
-  const [isSucess, setIsSucess] = useState(false);
-
   const history = useHistory();
   const { signIn } = useAuth();
-
+  const recarregarAPagina = () => {
+    window.location.reload();
+  };
   const {
     formState: { errors },
     register,
@@ -64,12 +64,12 @@ export const LoginForm = () => {
     signIn(data)
       .then((response) => {
         console.log(response);
-        setIsSucess(true);
         onModalSucessOpen();
+        recarregarAPagina();
       })
       .catch((err) => {
         console.log(err);
-        setIsSucess(false);
+
         onModalFailOpen();
       });
   };
@@ -91,10 +91,13 @@ export const LoginForm = () => {
           <Text fontSize={24} mt={"10px"}>
             Login
           </Text>
+          <Text fontSize={10} mt={"10px"} color={"theme.red"}>
+            Preencha todos os campos corretamente para fazer o login
+          </Text>
           <FormControl isRequired>
             <FormLabel>E-mail</FormLabel>
             <Input
-              placeholder="seu email"
+              placeholder="seu email de cadastro"
               w={"290px"}
               type="email"
               {...register("email")}
@@ -104,7 +107,7 @@ export const LoginForm = () => {
           <FormControl isRequired>
             <FormLabel>Senha</FormLabel>
             <Input
-              placeholder="sua senha"
+              placeholder="sua senha de cadastro"
               w={"290px"}
               type="password"
               {...register("password")}

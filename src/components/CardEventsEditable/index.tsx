@@ -123,6 +123,7 @@ export const CardEventsEditable = ({
             mt={-4}
           >
             <Input
+              defaultValue={tittle}
               ml={5}
               contentEditable={"true"}
               w={"220px"}
@@ -138,6 +139,7 @@ export const CardEventsEditable = ({
             <Image src={agendaIcon} />
           </HStack>
           <Input
+            defaultValue={description}
             ml={5}
             contentEditable={"true"}
             w={"320px"}
@@ -154,6 +156,7 @@ export const CardEventsEditable = ({
 
           <HStack spacing={5}>
             <Input
+              defaultValue={date}
               type={"datetime-local"}
               ml={5}
               contentEditable={"true"}
@@ -170,7 +173,11 @@ export const CardEventsEditable = ({
             />
           </HStack>
           <Text>Escolha a nova cor para seu evento</Text>
-          <Input type={"color"} {...register("cor")}></Input>
+          <Input
+            type={"color"}
+            {...register("cor")}
+            defaultValue={color}
+          ></Input>
         </VStack>
         <Button
           mt={10}

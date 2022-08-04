@@ -52,7 +52,7 @@ export const ModalDeleteConfirmation = ({
           <ModalBody>
             <VStack>
               <Text>
-                Vocês está prestes a deletar o evento{" "}
+                Você está prestes a deletar o evento{" "}
                 {tittle.toLocaleUpperCase()}, tem certeza que deseja fazer isso
                 ?
               </Text>

@@ -72,6 +72,8 @@ export const CardEvents = ({
       });
   };
 
+  const emptyDate = "0000-00-00 00:00:00";
+
   return (
     <>
       <ModalExpiredToken isOpen={isOpen} onClose={onClose} />
@@ -130,8 +132,13 @@ export const CardEvents = ({
           <Text w={"200px"}>Descrição : {description}</Text>
           <HStack spacing={5}>
             <MdDateRange size={35} color={"#011a3f"} />
-
-            <Text fontSize={25}>{date}</Text>
+            {date === emptyDate ? (
+              <Text color={"theme.red"} fontSize={10} w={"150px"}>
+                {"clique em editar evento para adicionar uma data válida"}
+              </Text>
+            ) : (
+              <Text fontSize={25}>{date}</Text>
+            )}
           </HStack>
 
           <Modall

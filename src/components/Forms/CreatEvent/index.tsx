@@ -90,7 +90,10 @@ export const CreatEventForm = () => {
       >
         <VStack spacing={5}>
           <Text fontSize={24} mt={"10px"}>
-            Add Event
+            Crian evento
+          </Text>
+          <Text fontSize={10} mt={"10px"} color={"theme.red"}>
+            Preencha todos os campos para criar seu evento
           </Text>
           <FormControl isRequired>
             <FormLabel>Titulo</FormLabel>
@@ -99,6 +102,7 @@ export const CreatEventForm = () => {
               w={"290px"}
               type="text"
               {...register("titulo")}
+              errorBorderColor="crimson"
             />
           </FormControl>
 
@@ -109,6 +113,7 @@ export const CreatEventForm = () => {
               w={"290px"}
               type="text"
               {...register("descricao")}
+              errorBorderColor="crimson"
             />
           </FormControl>
           <FormControl isRequired>
@@ -118,6 +123,7 @@ export const CreatEventForm = () => {
               w={"290px"}
               type={"datetime-local"}
               {...register("date")}
+              errorBorderColor="crimson"
             />
           </FormControl>
           <FormControl isRequired>
@@ -127,6 +133,7 @@ export const CreatEventForm = () => {
               w={"290px"}
               type="color"
               {...register("cor")}
+              errorBorderColor="crimson"
             />
           </FormControl>
           <Button
