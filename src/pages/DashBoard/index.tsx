@@ -12,7 +12,6 @@ import { useContext } from "react";
 import { EventsContext } from "../../contexts/Events";
 import { Header } from "../../components/Header";
 import { CardEvents } from "../../components/CardEvents";
-import { array } from "yup";
 
 export const DashBoard = () => {
   const { events } = useContext(EventsContext);

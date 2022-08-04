@@ -6,11 +6,13 @@ import {
   Button,
   VStack,
   Image,
+  useToast,
 } from "@chakra-ui/react";
 
 import "./index.css";
 import agendaIcon from "../../assets/images/icon.png";
 import { Modall } from "../modal";
+import { ModalDeleteConfirmation } from "../ModalDeletConfirmation";
 import { MdDateRange } from "react-icons/md";
 import { api } from "../../services";
 import moment from "moment";
@@ -33,6 +35,8 @@ export const CardEvents = ({
 }: CardEventsProps) => {
   const history = useHistory();
 
+  const toast = useToast();
+
   const handleNavigation = (path: any) => {
     return history.push(path);
   };
@@ -47,10 +51,25 @@ export const CardEvents = ({
       })
       .then((response) => {
         console.log(response);
-        alert("Evento deletado com sucesso");
+        toast({
+          position: "top",
+          title: "Evento deletado com sucesso",
+          description: "Clique em fechar para",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
         console.log(err);
+        toast({
+          position: "top",
+          title: "Não foi possível deletar o evento",
+          description: "Tente novamente mais tarde",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
   };
 
@@ -95,7 +114,6 @@ export const CardEvents = ({
             </Text>
           ) : (
             <Text
-              /* contentEditable={"true"} */
               w={"220px"}
               fontWeight={"semibold"}
               color={"theme.black"}
@@ -121,19 +139,8 @@ export const CardEvents = ({
           titulo={tittle}
           descricao={description}
           data={date}
-        ></Modall>
-        <Button
-          bg={"theme.darkBlue"}
-          w="220px"
-          fontFamily={"Permanent Marker"}
-          color={"theme.white"}
-          mb={20}
-          _hover={{ bg: "theme.blue" }}
-          fontSize={20}
-          onClick={handleDelete as any}
-        >
-          deletar evento
-        </Button>
+        />
+        <ModalDeleteConfirmation handleDelete={handleDelete} tittle={tittle} />
       </VStack>
     </Box>
   );
