@@ -10,10 +10,8 @@ import {
 } from "@chakra-ui/react";
 
 import { useAuth } from "../../../contexts/AuthContext";
-import { ModalSucess } from "../../ModallSucess";
 import { ModalFail } from "../../ModalFail";
 import { useForm } from "react-hook-form";
-
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -34,11 +32,6 @@ const loginSchema = yup.object().shape({
 });
 
 export const LoginForm = () => {
-  const {
-    isOpen: isModalSucessOpen,
-    onOpen: onModalSucessOpen,
-    onClose: onModalSucessClose,
-  } = useDisclosure();
   const {
     isOpen: isModalFailOpen,
     onOpen: onModalFailOpen,
@@ -61,7 +54,7 @@ export const LoginForm = () => {
     signIn(data)
       .then((response) => {
         console.log(response);
-        onModalSucessOpen();
+
         recarregarAPagina();
       })
       .catch((err) => {
@@ -74,7 +67,7 @@ export const LoginForm = () => {
   return (
     <>
       <ModalFail isOpen={isModalFailOpen} onClose={onModalFailClose} />
-      <ModalSucess isOpen={isModalSucessOpen} onClose={onModalSucessClose} />
+
       <Flex
         w={"365px"}
         h={"370px"}

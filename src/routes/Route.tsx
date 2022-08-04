@@ -1,5 +1,6 @@
 import { ComponentType } from "react";
 import { Redirect, Route as ReactRoute, RouteProps } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 interface IRouteProps extends RouteProps {
   isPrivate?: boolean;
@@ -11,6 +12,7 @@ export const Route = ({
   component: Component,
   ...rest
 }: IRouteProps) => {
+  const { accessToken } = useAuth();
   const token = localStorage.getItem("@AcessToken");
 
   return (

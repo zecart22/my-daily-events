@@ -1,9 +1,11 @@
 import {
+  Center,
   Flex,
   HStack,
   VStack,
   Image,
   Box,
+  Link,
   Text,
   Button,
   useMediaQuery,
@@ -12,7 +14,7 @@ import {
 import { FaUserCircle } from "react-icons/fa";
 import { CgAddR } from "react-icons/cg";
 import { useAuth } from "../../contexts/AuthContext";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import eventList from "../../assets/images/eventList.png";
 import { BiLogOut } from "react-icons/bi";
@@ -27,6 +29,13 @@ export const Header = () => {
   };
 
   const [isLargerThan1302] = useMediaQuery("(min-width: 1302px)");
+
+  const location = useLocation();
+  let isHome = true;
+
+  if (location.pathname !== "/") {
+    isHome = false;
+  }
 
   return (
     <>
