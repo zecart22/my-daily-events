@@ -70,6 +70,8 @@ export const CardEvents = ({
       textAlign={"center"}
       justifyContent={"column"}
       boxShadow="lg"
+      ml={5}
+      mr={5}
     >
       <VStack spacing={5} mt={5}>
         <HStack

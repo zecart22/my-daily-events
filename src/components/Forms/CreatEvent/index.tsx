@@ -6,6 +6,7 @@ import {
   Flex,
   VStack,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
@@ -33,6 +34,7 @@ const loginSchema = yup.object().shape({
 export const CreatEventForm = () => {
   const history = useHistory();
   const { accessToken } = useAuth();
+  const toast = useToast();
 
   const {
     formState: { errors },
@@ -51,10 +53,24 @@ export const CreatEventForm = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        alert("Evento adicionado com sucesso");
+        toast({
+          position: "top",
+          title: "Evento criado com sucesso",
+          description: "Parabéns mais um evento criado ;)",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
-        console.log(err);
+        toast({
+          position: "top",
+          title: "Não foi possível criar o evento",
+          description: "Tente novamente mais tarde",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
   };
 

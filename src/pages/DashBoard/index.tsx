@@ -19,7 +19,7 @@ export const DashBoard = () => {
 
   const AppearFromRight = keyframes`
   from {opacity: 0;}
-  to {transform: translateX(20px)}
+  to {transform: translateX(0px)}
 `;
 
   return (
@@ -28,8 +28,9 @@ export const DashBoard = () => {
       <Flex
         flexDirection="row"
         flexWrap={"wrap"}
-        justifyContent={"space-around"}
-        animation={`${AppearFromRight} 1s`}
+        justifyContent={"initial"}
+        animation={`${AppearFromRight} 3s`}
+        ml={[5, 10]}
       >
         {events &&
           events.map((events: any) => (

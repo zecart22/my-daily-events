@@ -13,12 +13,13 @@ export const Route = ({
   ...rest
 }: IRouteProps) => {
   const { accessToken } = useAuth();
+  const token = localStorage.getItem("@AcessToken");
 
   return (
     <ReactRoute
       {...rest}
       render={() =>
-        isPrivate === !!accessToken ? (
+        isPrivate === !!token ? (
           <Component />
         ) : (
           <Redirect to={isPrivate ? "/" : "/dashboard"} />

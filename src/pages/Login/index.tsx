@@ -5,6 +5,7 @@ import {
   Box,
   keyframes,
   useMediaQuery,
+  
 } from "@chakra-ui/react";
 import { LoginForm } from "../../components/Forms/Login";
 import imageDestak from "../../assets/images/image1.png";
@@ -16,6 +17,7 @@ to {transform: translateX(-5px)}
 `;
 
 export const Login = () => {
+  
   const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
 
   return (

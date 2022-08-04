@@ -50,9 +50,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
     const response = await api.post("/login/adm", { email, password });
-    console.log(response.data);
-    const { accessToken } = response.data;
 
+    const { accessToken } = response.data.token;
     localStorage.setItem("@MyDailyEvents:accessToken", accessToken);
     window.localStorage.setItem("@AcessToken", response.data.token);
 

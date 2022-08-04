@@ -5,18 +5,25 @@ import {
   Box,
   keyframes,
   useMediaQuery,
+  Center,
 } from "@chakra-ui/react";
 
 import { CreatEventForm } from "../../components/Forms/CreatEvent";
 import imageDestak2 from "../../assets/images/image6.png";
 import logo from "../../assets/images/logo.png";
+import { HiArrowLeft } from "react-icons/hi";
+import { useHistory } from "react-router-dom";
 
 export const CreatEvent = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
+  const history = useHistory();
+  const handleNavigation = (path: any) => {
+    return history.push(path);
+  };
 
   const AppearFromRight = keyframes`
 from {opacity: 0;}
-to {transform: translateX(-5px)}
+to {transform: translateX(0px)}
 `;
 
   return (
@@ -34,6 +41,15 @@ to {transform: translateX(-5px)}
                 animation={`${AppearFromRight} 3s`}
               />
               <VStack spacing={10}>
+                <Center
+                  w="100px"
+                  h="100px"
+                  bg={"theme.gray"}
+                  mr={250}
+                  onClick={() => handleNavigation("/dashboard")}
+                >
+                  <HiArrowLeft size={30} />
+                </Center>
                 <CreatEventForm />
               </VStack>
             </HStack>

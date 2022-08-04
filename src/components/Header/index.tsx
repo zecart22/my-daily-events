@@ -17,6 +17,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useHistory, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import eventList from "../../assets/images/eventList.png";
+import { BiLogOut } from "react-icons/bi";
 
 export const Header = () => {
   const { signOut } = useAuth();
@@ -88,7 +89,16 @@ export const Header = () => {
                     Adicionar Eventos
                   </Text>
                 </VStack>
-                <Text color={"theme.red"}>Log Out</Text>
+                <VStack>
+                  <BiLogOut size={50} />
+                  <Button
+                    variant={"ghost"}
+                    color={"theme.red"}
+                    onClick={signOut}
+                  >
+                    Log Out
+                  </Button>
+                </VStack>
               </HStack>
             </Flex>
           </>
@@ -101,22 +111,34 @@ export const Header = () => {
               </VStack>
             </Flex>
             <Flex alignItems="flex-end" mb={"2"}>
-              <VStack spacing="2">
-                <Box
-                  as="button"
-                  onClick={() => handleNavigation("/createvent")}
-                >
-                  <CgAddR size={45} />
-                </Box>
-                <Text
-                  textDecoration={"none"}
-                  fontWeight={"extrabold"}
-                  color={"gray"}
-                  fontSize={"10px"}
-                >
-                  Adicionar Eventos
-                </Text>
-              </VStack>
+              <HStack>
+                <VStack spacing="2">
+                  <Box
+                    as="button"
+                    onClick={() => handleNavigation("/createvent")}
+                  >
+                    <CgAddR size={45} />
+                  </Box>
+                  <Text
+                    textDecoration={"none"}
+                    fontWeight={"extrabold"}
+                    color={"gray"}
+                    fontSize={"10px"}
+                  >
+                    Adicionar Eventos
+                  </Text>
+                </VStack>
+                <VStack>
+                  <BiLogOut size={45} />
+                  <Button
+                    variant={"ghost"}
+                    color={"theme.red"}
+                    onClick={signOut}
+                  >
+                    Log Out
+                  </Button>
+                </VStack>
+              </HStack>
             </Flex>
           </>
         )}
