@@ -6,11 +6,12 @@ import {
   Image,
   useToast,
   useDisclosure,
+  Button,
 } from "@chakra-ui/react";
 
 import "./index.css";
 import agendaIcon from "../../assets/images/icon.png";
-import { Modall } from "../modal";
+import { Link } from "react-router-dom";
 import { ModalDeleteConfirmation } from "../ModalDeletConfirmation";
 import { MdDateRange } from "react-icons/md";
 import { api } from "../../services";
@@ -22,6 +23,8 @@ interface CardEventsProps {
   date: string;
   color: string;
   id: number;
+  eventsData: any;
+  setEventsData: any;
 }
 
 export const CardEvents = ({
@@ -30,24 +33,25 @@ export const CardEvents = ({
   date,
   color,
   id,
+  eventsData,
+  setEventsData,
 }: CardEventsProps) => {
   const toast = useToast();
-
-  const recarregarAPagina = () => {
-    window.location.reload();
-  };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const token = localStorage.getItem("@AcessToken");
 
-  const handleDelete = () => {
-    api
+  const handleDelete = async () => {
+    await api
       .delete("/eventos_diarios/" + id, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         console.log(response);
+        const index = eventsData.findIndex((e: any) => e.id === id);
+        eventsData.splice(index, 1);
+        setEventsData([...eventsData]);
         toast({
           position: "top",
           title: "Evento deletado com sucesso",
@@ -56,7 +60,6 @@ export const CardEvents = ({
           duration: 5000,
           isClosable: true,
         });
-        setTimeout(recarregarAPagina, 2000);
       })
       .catch((err) => {
         console.log(err);
@@ -65,6 +68,8 @@ export const CardEvents = ({
   };
 
   const emptyDate = "0000-00-00 00:00:00";
+
+  const paramsURL = `/editevent/${id}`;
 
   return (
     <>
@@ -132,14 +137,7 @@ export const CardEvents = ({
               <Text fontSize={25}>{date}</Text>
             )}
           </HStack>
-
-          <Modall
-            id={id}
-            cor={color}
-            titulo={tittle}
-            descricao={description}
-            data={date}
-          />
+          <Link to={`/editevent/${id}`}>Editar Evento</Link>
           <ModalDeleteConfirmation
             handleDelete={handleDelete}
             tittle={tittle}

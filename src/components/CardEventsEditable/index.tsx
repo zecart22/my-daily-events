@@ -63,9 +63,6 @@ export const CardEventsEditable = ({
 
   const toast = useToast();
   const token = localStorage.getItem("@AcessToken");
-  const recarregarAPagina = () => {
-    window.location.reload();
-  };
 
   const handleEdit = (data: EditData) => {
     api
@@ -83,7 +80,6 @@ export const CardEventsEditable = ({
           duration: 5000,
           isClosable: true,
         });
-        setTimeout(recarregarAPagina, 2000);
       })
       .catch((err) => {
         onOpen();

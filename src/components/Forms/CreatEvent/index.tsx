@@ -46,10 +46,6 @@ export const CreatEventForm = () => {
 
   const token = localStorage.getItem("@AcessToken");
 
-  const recarregarAPagina = () => {
-    window.location.reload();
-  };
-
   const handleCreate = (data: LoginData) => {
     console.log(data);
     api
@@ -65,7 +61,6 @@ export const CreatEventForm = () => {
           duration: 5000,
           isClosable: true,
         });
-        setTimeout(recarregarAPagina, 2000);
       })
       .catch((err) => {
         onOpen();

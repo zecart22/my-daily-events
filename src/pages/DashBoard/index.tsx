@@ -1,12 +1,24 @@
 import { Flex, Box, keyframes } from "@chakra-ui/react";
-
-import { useContext } from "react";
-import { EventsContext } from "../../contexts/Events";
+import { api } from "../../services";
+import { useCallback, useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { CardEvents } from "../../components/CardEvents";
 
 export const DashBoard = () => {
-  const { events } = useContext(EventsContext);
+  const [eventsData, setEventsData] = useState([]);
+
+  const loadEvents = useCallback(async () => {
+    try {
+      const response = await api.get("/eventos_diarios");
+      setEventsData(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadEvents();
+  }, []);
 
   const AppearFromRight = keyframes`
   from {opacity: 0;}
@@ -23,14 +35,16 @@ export const DashBoard = () => {
         animation={`${AppearFromRight} 3s`}
         ml={[5, 10]}
       >
-        {events &&
-          events.map((events: any) => (
+        {eventsData &&
+          eventsData.map((events: any) => (
             <CardEvents
               color={events.cor}
               date={events.data}
               description={events.descricao}
               tittle={events.titulo}
               id={events.id}
+              eventsData={eventsData}
+              setEventsData={setEventsData}
             />
           ))}
       </Flex>

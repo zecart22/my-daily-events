@@ -39,9 +39,7 @@ export const LoginForm = () => {
   } = useDisclosure();
 
   const { signIn } = useAuth();
-  const recarregarAPagina = () => {
-    window.location.reload();
-  };
+
   const {
     formState: { errors },
     register,
@@ -54,8 +52,6 @@ export const LoginForm = () => {
     signIn(data)
       .then((response) => {
         console.log(response);
-
-        recarregarAPagina();
       })
       .catch((err) => {
         console.log(err);
