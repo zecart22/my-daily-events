@@ -1,4 +1,4 @@
-import { Flex, Box, keyframes } from "@chakra-ui/react";
+import { Flex, Box, keyframes, Heading } from "@chakra-ui/react";
 import { api } from "../../services";
 import { useCallback, useEffect, useState } from "react";
 import { Header } from "../../components/Header";
@@ -32,21 +32,32 @@ export const DashBoard = () => {
         flexDirection="row"
         flexWrap={"wrap"}
         justifyContent={"initial"}
-        animation={`${AppearFromRight} 3s`}
+        animation={`${AppearFromRight} 5s`}
         ml={[5, 10]}
       >
-        {eventsData &&
-          eventsData.map((events: any) => (
-            <CardEvents
-              color={events.cor}
-              date={events.data}
-              description={events.descricao}
-              tittle={events.titulo}
-              id={events.id}
-              eventsData={eventsData}
-              setEventsData={setEventsData}
-            />
-          ))}
+        {eventsData.length > 0 ? (
+          <>
+            {eventsData &&
+              eventsData.map((events: any) => (
+                <CardEvents
+                  color={events.cor}
+                  date={events.data}
+                  description={events.descricao}
+                  tittle={events.titulo}
+                  id={events.id}
+                  eventsData={eventsData}
+                  setEventsData={setEventsData}
+                />
+              ))}
+          </>
+        ) : (
+          <>
+            <Heading mt={20}>
+              Ops..nehum evento criado ainda, clique em adicionar eventos par
+              começar!
+            </Heading>
+          </>
+        )}
       </Flex>
     </Box>
   );

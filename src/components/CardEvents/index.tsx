@@ -16,7 +16,7 @@ import { ModalDeleteConfirmation } from "../ModalDeletConfirmation";
 import { MdDateRange } from "react-icons/md";
 import { api } from "../../services";
 import { ModalExpiredToken } from "../ModalExpiredToken";
-
+import moment, { Moment } from "moment";
 interface CardEventsProps {
   tittle: string;
   description: string;
@@ -54,12 +54,13 @@ export const CardEvents = ({
         setEventsData([...eventsData]);
         toast({
           position: "top",
-          title: "Evento deletado com sucesso",
-          description: "Recarregando página...",
-          status: "success",
-          duration: 5000,
+          title: "Tudo certo",
+          description: "Deletando evento",
+          status: "loading",
+          duration: 500,
           isClosable: true,
         });
+        onClose();
       })
       .catch((err) => {
         console.log(err);
@@ -68,6 +69,9 @@ export const CardEvents = ({
   };
 
   const emptyDate = "0000-00-00 00:00:00";
+
+  let newDate = moment(date).format("DD/MM/YYYY");
+  let hour = moment(date).format("hh:mm");
 
   const paramsURL = `/editevent/${id}`;
 
@@ -134,10 +138,23 @@ export const CardEvents = ({
                 {"clique em editar evento para adicionar uma data válida"}
               </Text>
             ) : (
-              <Text fontSize={25}>{date}</Text>
+              <VStack>
+                <Text fontSize={20}>Data : {newDate}</Text>
+                <Text fontSize={20}> Horário : {hour}</Text>
+              </VStack>
             )}
           </HStack>
-          <Link to={`/editevent/${id}`}>Editar Evento</Link>
+          <Button
+            bg={"theme.darkBlue"}
+            color={"theme.white"}
+            w="220px"
+            fontFamily={"Permanent Marker"}
+            mb={20}
+            _hover={{ bg: "theme.blue" }}
+            fontSize={20}
+          >
+            <Link to={`/editevent/${id}`}>Editar Evento</Link>
+          </Button>
           <ModalDeleteConfirmation
             handleDelete={handleDelete}
             tittle={tittle}

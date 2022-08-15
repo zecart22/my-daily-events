@@ -6,6 +6,7 @@ import {
   keyframes,
   useMediaQuery,
   Center,
+  Text,
 } from "@chakra-ui/react";
 
 import { CreatEventForm } from "../../components/Forms/CreatEvent";
@@ -41,15 +42,20 @@ to {transform: translateX(0px)}
                 animation={`${AppearFromRight} 3s`}
               />
               <VStack spacing={10}>
-                <Center
-                  w="100px"
-                  h="100px"
-                  bg={"theme.gray"}
-                  mr={250}
-                  onClick={() => handleNavigation("/dashboard")}
-                >
-                  <HiArrowLeft size={30} />
-                </Center>
+                <HStack spacing={-10}>
+                  <Center
+                    w="100px"
+                    h="100px"
+                    bg={"theme.gray"}
+                    mr={250}
+                    onClick={() => handleNavigation("/dashboard")}
+                  >
+                    <HiArrowLeft size={30} color={"red"} />
+                  </Center>
+                  <Text color={"theme.red"} fontSize={30}>
+                    Ver eventos
+                  </Text>
+                </HStack>
                 <CreatEventForm />
               </VStack>
             </HStack>
@@ -61,6 +67,20 @@ to {transform: translateX(0px)}
           <Box bg={"theme.white"} h="110vh">
             <VStack spacing={10}>
               <Image src={logo} alt="logo" mt={50}></Image>
+              <HStack spacing={-20}>
+                <Center
+                  w="100px"
+                  h="100px"
+                  bg={"theme.gray"}
+                  mr={250}
+                  onClick={() => handleNavigation("/dashboard")}
+                >
+                  <HiArrowLeft size={30} color={"red"} />
+                </Center>
+                <Text color={"theme.red"} fontSize={"15"}>
+                  Ver eventos
+                </Text>
+              </HStack>
 
               <CreatEventForm />
             </VStack>

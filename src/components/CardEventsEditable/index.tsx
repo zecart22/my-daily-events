@@ -8,16 +8,17 @@ import {
   Input,
   useToast,
   useDisclosure,
+  Heading,
 } from "@chakra-ui/react";
 
 import "./index.css";
 import agendaIcon from "../../assets/images/icon.png";
 import { api } from "../../services";
-import { MdDateRange } from "react-icons/md";
+import { HiArrowLeft } from "react-icons/hi";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { ModalExpiredToken } from "../ModalExpiredToken";
 
 interface CardEventsProps {
@@ -31,7 +32,7 @@ interface CardEventsProps {
 interface EditData {
   titulo: string;
   descricao: string;
-  date: string;
+  data: string;
   cor: string;
 }
 
@@ -46,10 +47,16 @@ export const CardEventsEditable = ({
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const handleNavigation = (path: any) => {
+    return history.push(path);
+  };
+
+  const today = new Date();
+
   const ChangeEventSchema = yup.object().shape({
     titulo: yup.string(),
     descricao: yup.string(),
-    date: yup.string(),
+    data: yup.string(),
     cor: yup.string(),
   });
 
@@ -65,31 +72,45 @@ export const CardEventsEditable = ({
   const token = localStorage.getItem("@AcessToken");
 
   const handleEdit = (data: EditData) => {
-    api
-      .put("/eventos_diarios/" + id, data, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        console.log(response);
+    const choyceDate = new Date(data.data);
+    if (choyceDate > today) {
+      api
+        .put("/eventos_diarios/" + id, data, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          console.log(response);
 
-        toast({
-          position: "top",
-          title: "Evento editado com sucesso",
-          description: "Pagina recarregando...",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
+          toast({
+            position: "top",
+            title: "Tudo certo",
+            description: "Evento editado",
+            status: "success",
+            duration: 1000,
+            isClosable: true,
+          });
+          handleNavigation("/dashboard");
+        })
+        .catch((err) => {
+          onOpen();
+          console.log(err);
         });
-      })
-      .catch((err) => {
-        onOpen();
-        console.log(err);
+    } else {
+      toast({
+        position: "top",
+        title: "Nova data inválida!! ",
+        description: "A data escolhida já passou, escolha uma outra data",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
       });
+    }
   };
 
   return (
     <>
       <ModalExpiredToken isOpen={isOpen} onClose={onClose} />
+      <Heading> Editando evento</Heading>
       <Box
         border="1px"
         borderColor="gray.100"
@@ -186,6 +207,14 @@ export const CardEventsEditable = ({
           Confirmar edição
         </Button>
       </Box>
+      <HStack>
+        <HiArrowLeft size={30} color={"red"} />
+        <Link to={`/dashboard`}>
+          <Text color={"red"} fontSize={[20, 25]}>
+            Voltar para todos eventos
+          </Text>
+        </Link>
+      </HStack>
     </>
   );
 };
