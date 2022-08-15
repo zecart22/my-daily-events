@@ -53,7 +53,7 @@ export const DashBoard = () => {
         ) : (
           <>
             <Heading mt={20}>
-              Ops..nehum evento criado ainda, clique em adicionar eventos par
+              Ops..nehum evento criado ainda, clique em adicionar eventos para
               começar!
             </Heading>
           </>
