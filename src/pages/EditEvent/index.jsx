@@ -1,26 +1,18 @@
 import {
-  Button,
-  useDisclosure,
   keyframes,
   VStack,
   HStack,
-  Heading,
   Box,
   Image,
   useMediaQuery,
-  Input,
-  Text,
-  Center,
 } from "@chakra-ui/react";
 
 import { CardEventsEditable } from "../../components/CardEventsEditable";
 import imageDestak3 from "../../assets/images/image3.png";
 import { api } from "../../services";
 import logo from "../../assets/images/logo.png";
-import { useState, useEffect, useCallback } from "react";
-import { useParams, useHistory } from "react-router-dom";
-
-import { HiArrowLeft } from "react-icons/hi";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export const EditEvent = () => {
   const { id } = useParams();

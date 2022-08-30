@@ -207,14 +207,14 @@ export const CardEventsEditable = ({
           Confirmar edição
         </Button>
       </Box>
-      <HStack>
-        <HiArrowLeft size={30} color={"red"} />
-        <Link to={`/dashboard`}>
+      <Link to={`/dashboard`}>
+        <HStack>
+          <HiArrowLeft size={30} color={"red"} />
           <Text color={"red"} fontSize={[20, 25]}>
             Voltar para todos eventos
           </Text>
-        </Link>
-      </HStack>
+        </HStack>
+      </Link>
     </>
   );
 };

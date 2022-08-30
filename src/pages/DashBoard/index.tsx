@@ -51,12 +51,7 @@ export const DashBoard = () => {
               ))}
           </>
         ) : (
-          <>
-            <Heading mt={20}>
-              Ops..nenhum evento criado ainda, clique em adicionar eventos para
-              começar!
-            </Heading>
-          </>
+          <></>
         )}
       </Flex>
     </Box>
