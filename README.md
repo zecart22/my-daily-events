@@ -1,6 +1,4 @@
-
 <h1>MyDaily Events</h1>
-
 
 <h2> Objetivo:</h2>
 
@@ -16,12 +14,8 @@
 <li> Logar e deslogar : </li>
 <p>Para entrar e sair da aplicação respectivamente</p>
 
-
-
 <li> Criar Eventos : </li>
 <p>     Ao acessar a página o usuário conseguirá criar um evento, fornecendo as informações requisitadas no formulário de cadastro de eventos.</p>
-
-
 
 <li> Listar Eventos : </li>
 <p>     Acessando a DASHBOARD o usuário conseguirá consultar todos eventos criados, ver todas suas informações e proceder da forma que desejar</p>
@@ -31,11 +25,7 @@
 <p> Ao clicar no botão "DELETAR EVENTO" aparecerá um modal de confirmação e ao confirmar a deleção estará completa</p>
 </ul>
 
-
-
-<a href="https://my-daily-events.vercel.app/" title="deploy">Deploy da aplicação</a></br>
-
-
+<a href="https://my-daily-events-git-main-zecart22.vercel.app/" title="deploy">Deploy da aplicação</a></br>
 
 <h4> Clone do repositório </h4>
 
@@ -49,8 +39,6 @@
 
 - `yarn start`
 
-
-
 <h4> Tecnologias utilizadas</h4>
 
 - `ReactJS`
@@ -62,7 +50,6 @@
 - `React Router Dom`
 - `AXIOS`
 - `Yup`
-
 
 <h4> Por que da Stack ?</h4>
 
@@ -83,16 +70,15 @@
 -     src
       +---------assests
                 +-------images : nesse diretório estão todas as imagens uitlizadas na aplicação.
-                
+
       +----------components : nesse diretório estão todos componentes utilizados na aplicação.
-      
+
       +----------contexts: nesse diretório estão centralizadas todas as variáveis da aplicação.
-      
+
       +----------pages: nesse diretório estão todas as páginas da aplicação.
-      
+
       +----------routes: nesse direitório estão todas as rotas das páginas da aplicação.
-      
+
       +----------services: nesse diretório está localizada o link da API.
-      
+
       +----------style: nesse diretório está localizado o Theme que trás todo padrão de estilização da aplicação.
-      
